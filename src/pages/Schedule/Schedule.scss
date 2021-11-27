@@ -1,0 +1,60 @@
+$green: #00B745;
+$blue: #008DC8;
+$white: #FFFFFF;
+$middle-gray: #505050;
+
+.schedule-main{
+    .schedule-main__wrapper{
+        max-width: 1280px;
+        margin: 0 auto;
+        
+        .heading-container{
+            padding: 0 2em ;
+            display: grid;
+            grid-template-columns: repeat(24,1fr);
+            align-items: center;
+            .back-link{
+                grid-column: 1/2;
+                justify-self: start;
+                text-decoration: none;
+            }
+            .title{
+                grid-column: 4/10;
+                padding: 1em 0;
+            }
+            .options{
+                grid-column: 4/20;
+                display: flex;
+                justify-content: center;
+                gap: 2em;
+                padding: 2.3em 0em;
+                .option{
+                    width: 100%;
+                    border-bottom: 5px solid #969696;
+                    text-align: center;
+                }
+            }
+
+            .sport-selected{
+                grid-column: 20/25;
+                justify-self: end;
+            }
+        }
+        
+        .schedule-container{
+            padding: 0 2em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 50em;
+            margin: 0 auto;
+        }
+        .continue-container{
+            padding: 0 2em 3em;
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+    }
+}

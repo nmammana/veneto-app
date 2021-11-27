@@ -1,0 +1,25 @@
+$white: #FFFFFF;
+$green: #00B745;
+
+.towers-main{
+    .towers-main__wrapper{
+        max-width: 1280px;
+        margin: 0 auto;
+
+        .title{
+            padding: 1em 0;
+        }
+        
+        .buttons-container{
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            align-items: center;
+            justify-items: center;
+            column-gap: 4.5em;
+            row-gap: 3.5em;
+            padding: 0 5em 5em;
+        }
+        
+    }
+}
+

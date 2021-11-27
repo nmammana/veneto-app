@@ -1,0 +1,46 @@
+$green: #00B745;
+$blue: #008DC8;
+$white: #FFFFFF;
+
+
+.sports-main{
+    .sports-main__wrapper{
+        max-width: 1280px;
+        margin: 0 auto;
+        
+        .heading-container{
+            padding: 0 2em ;
+            display: grid;
+            grid-template-columns: repeat(12,1fr);
+            align-items: center;
+            .back-link{
+                grid-column: 1;
+                justify-self: start;
+                text-decoration: none;
+            }
+            .title{
+                grid-column: 2/12;
+                padding: 1em 0;
+            }
+        }
+        .sports-container{
+            padding: 0 2em 1em;
+            display: flex;
+            flex-direction: column;
+            .sports-wrapper{
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1.8em;
+                justify-content: space-between;
+            }
+            .continue-container{
+                padding: 2em 0;
+                display: flex;
+                justify-content: flex-end;
+            }
+            
+        }
+       
+            
+    }
+}

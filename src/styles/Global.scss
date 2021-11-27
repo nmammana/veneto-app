@@ -1,0 +1,52 @@
+@import "fonts";
+@import "buttons";
+
+.selection-container{
+    width: 66%;
+    min-height: 30em;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    
+    background: $white 0% 0% no-repeat padding-box;
+    box-shadow: 10px 10px 20px #00000066;
+    border: 1px solid #707070;
+    border-radius: 20px;
+    opacity: .85;
+    .rectangle-container{
+        position: relative;
+        .rectangle {
+            position: absolute;
+            width: 254px;
+            height: 15px;
+            background-color: $green;
+            left: 50%;
+            margin-left: -127px;
+        }
+    }
+}
+
+@media (min-width: 1050px){
+    html{
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 1300px){
+    html{
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 1580px){
+    html{
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 1900px){
+    html{
+        font-size: 24px;
+    }
+}

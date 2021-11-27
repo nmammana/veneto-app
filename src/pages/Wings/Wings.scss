@@ -1,0 +1,31 @@
+.wings-main{
+    .wings-main__wrapper{
+        max-width: 1280px;
+        margin: 0 auto;
+        
+        .heading-container{
+            padding: 0 2em ;
+            display: grid;
+            grid-template-columns: repeat(12,1fr);
+            align-items: center;
+            .back-link{
+                grid-column: 1;
+                justify-self: start;
+                text-decoration: none;
+            }
+            .title{
+                grid-column: 2/12;
+                padding: 1em 0;
+            }
+        }
+        .buttons-container{
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            align-items: center;
+            justify-items: center;
+            column-gap: 4.5em;
+            padding: 0 5em 5em;
+        }
+        
+    }
+}
