@@ -8,14 +8,17 @@ import { ReservationsContext } from '../../contexts/ReservationsContext';
 
 export default function Apartments() {
     const navigate  = useNavigate();
-    const {user, setUser} = useContext(ReservationsContext);
+    const {auth, setAuth} = useContext(ReservationsContext);
+    const [showSelected, setShowSelected] = useState(false); 
     
     const changeFloor = (floorNumber) => {
-        setUser({...user, floor: floorNumber});
+        setShowSelected(true);
+        setAuth({...auth, floor: floorNumber});
     }
 
     const changeApartment = (apartment) => {
-        setUser({...user, apartment: apartment});
+        setShowSelected(true);
+        setAuth({...auth, apartment: apartment});
     }
 
     const submitApartment = () => {
@@ -23,8 +26,8 @@ export default function Apartments() {
     }
 
     useEffect(() => {
-        console.log('user', user);
-    }, [user]);
+        console.log('auth', auth);
+    }, [auth]);
 
     return (
         <Layout>
@@ -63,18 +66,17 @@ export default function Apartments() {
                             <button onClick={()=>changeApartment("G")} className="button3 button2-font place3btn">G</button>
                             <button onClick={()=>changeApartment("H")} className="button3 button2-font place4btn">H</button>
                                 
-                            
                             <p className="body1 selection-label">Usted seleccionó:</p>
                              
-                            <button className="button-selected button4 button2-font place2btn">
-                                {(user.apartment) ? (
-                                    <p>{user.floor === 0 ? `PB` : `${user.floor}°`} {user.apartment}</p>
+                            <button className="button-selected button4 button2-font place2btn" disabled>
+                                {showSelected ? (
+                                    <p>{auth.floor === 0 ? `PB` : `${auth.floor}°`} {auth.apartment}</p>
                                 ) : (
                                     <p> </p>
                                 )}
                             </button>
                             
-                            <button onClick={submitApartment} disabled={!user.apartment} 
+                            <button onClick={submitApartment} disabled={!auth.apartment} 
                                     className="next-button continue-button">
                                 <span className="icon">
                                     <FaChevronRight/>

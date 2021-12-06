@@ -6,12 +6,12 @@ import './Towers.scss';
 import { ReservationsContext } from '../../contexts/ReservationsContext';
 
 export default function Towers() {
-    const {user, setUser} = useContext(ReservationsContext)
+    const {auth, setAuth} = useContext(ReservationsContext)
 
     const navigate  = useNavigate();
 
     const handleClick = (towerNumber) => {
-        setUser({...user, tower: towerNumber});
+        setAuth({...auth, tower: towerNumber});
         navigate("/wings");
     }
 

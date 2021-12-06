@@ -1,15 +1,47 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout'
 import './Reservation.scss';
 import '../../assets/icons/iconosVeneto-v1.0/style.scss';
 import {FaChevronLeft, FaChevronRight} from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
+import { ReservationsContext } from '../../contexts/ReservationsContext';
+import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+
 
 export default function Reservation() {
     const navigate  = useNavigate();
+    const {reservation, auth, fieldSelected, setUserId} = useContext(ReservationsContext);
 
-    
+    useEffect(() => {
+        console.log('reservation',reservation)
+    }, [reservation])
+
+    const submitReservation = async () => {
+        try {
+            let response = await axios.post(`http://${process.env.REACT_APP_API_URL}/reservation`, reservation);
+            let data = response.data;
+            console.log(data);
+            //todo: mostrar mensaje de reserva guardada correctamente??, al dar OK direccionar a  "/"
+            if(data){
+                setUserId("");
+                navigate("/");
+            }
+            
+        }catch(e){
+            console.error("RESERVATION ERROR: ", e)
+            toast.error("Error: Por favor comience de nuevo su reserva", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });    
+        }
+    }
 
     return (
         <Layout>
@@ -32,35 +64,53 @@ export default function Reservation() {
                         </div>
                         
                         <div className="reservation-container">
-                            <div className="reservation-details">
-                                <div className="item">
-                                    <p className="body2 category">Área Deportiva</p>
-                                    <p className="button-font value">Fútbol</p>
+                            {fieldSelected.type &&
+                                <div className="reservation-details">
+                                    <div className="item">
+                                        <p className="body2 category">Área Deportiva</p>
+                                        <p className="button-font value">{fieldSelected.name}</p>
+                                    </div>
+                                    <div className="item">
+                                        <p className="body2 category">Cancha</p>
+                                        <p className="button-font value">{fieldSelected.field.split(" ")[1]}</p>
+                                    </div>
+                                    <div className="item">
+                                        <p className="body2 category">Turno</p>
+                                        <p className="button-font value">{reservation.hours[0]} a {reservation.hours[reservation.hours.length-1]}</p>
+                                    </div>
                                 </div>
-                                <div className="item">
-                                    <p className="body2 category">Cancha</p>
-                                    <p className="button-font value">1</p>
-                                </div>
-                                <div className="item">
-                                    <p className="body2 category">Turno</p>
-                                    <p className="button-font value">18:00 a 19:30hs</p>
-                                </div>
-                            </div>
+                            }
 
                             <div className="user-details">
                                 <table>
-                                    <tr>
-                                        <td className="category body2">Departamento:</td>
-                                        <td className="value body3">Torre 1, Ala 1, 3°H</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="category body2">Propietario:</td>
-                                        <td className="value body3 name">Nombre del propietario</td>
-                                    </tr>
+                                    {auth.apartment &&
+                                        <tbody>
+                                            <tr>
+                                                <td className="category body2">Departamento:</td>
+                                                <td className="value body3">Torre {auth.tower}, Ala {auth.wing}, {auth.floor}°{auth.apartment}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="category body2">Propietario:</td>
+                                                <td className="value body3 name">Nombre del propietario</td>
+                                            </tr>
+                                        </tbody>
+                                    }
                                 </table>
                             </div>
 
-                            <button className="button1 button-font">Confirmar</button>
+                            <button className="button1 button-font" onClick={submitReservation}>Confirmar</button>
+                            <ToastContainer
+                                position="top-center"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="light"  
+                                />
                         </div> 
                         
                         

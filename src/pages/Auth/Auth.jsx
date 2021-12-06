@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout'
 
@@ -8,37 +8,54 @@ import { useNavigate } from "react-router-dom";
 import './Auth.scss';
 import { ReservationsContext } from '../../contexts/ReservationsContext';
 
+import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+
+
+
 export default function Auth() {
     const navigate  = useNavigate();
-    const {user, setUser} = useContext(ReservationsContext);
+    const {auth, setAuth, setUserId, reservation, setReservation} = useContext(ReservationsContext);
     const [pin, setPin] = useState("");
 
-    const authSubmit = () => {
-        //todo: verificar autenticación
-        setUser({...user, pin: parseInt(pin)})
-        navigate("/sports");
-    }
-
-    useEffect(() => {
-        console.log('pin', pin);
-        console.log('user', user);
-
-    }, [user, pin]);
-
-    const addDigit = (digit) => {
-        if(pin.length<4){
-            setPin(pin => `${pin}${digit}`)
-            //No descartar esta funcion hasta haber comprobado que funciona bien autenticacion de la forma actual
-            //setUser({...user, pin: `${parseInt(user.pin)}${digit}`})
+    const authSubmit = async () => {
+        try {
+            let res = await axios.post(`http://${process.env.REACT_APP_API_URL}/auth/`, auth);
+            let data = res.data;
+            console.log(data);
+            if(data.userId){
+                setUserId(data.userId);
+                setReservation({...reservation, user: data.userId})
+                navigate("/home");
+            }
+        }catch(e){
+            console.error("LOGIN ERROR: ", e)
+            toast.error("Error: Usuario no encontrado", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
         }
     }
 
-    const clearAll = () => {
-        //No descartar esta funcion hasta haber comprobado que funciona bien autenticacion de la forma actual
-        //setUser({...user, pin:""});
-        setPin("");
+    const addDigit = (digit) => {
+        if(pin.length<4){
+            if(pin.length === 3){
+                setAuth({...auth, pin: parseInt(`${pin}${digit}`)});
+                setPin(pin => `${pin}${digit}`);
+            }else{
+                setPin(pin => `${pin}${digit}`);
+            }
+        }
     }
 
+    const clear = () => {
+        setPin(pin => pin.substring(0, pin.length-1));
+    }
 
     return (
         <Layout>
@@ -59,6 +76,7 @@ export default function Auth() {
                             
                             <h3 className="title heading2">Ingrese su PIN</h3>
                         </div>
+
                         <div className="auth-content">
                             <div className="keyboard">
                                 <button onClick={() => addDigit("1")} className="button5 button2-font">1</button>
@@ -71,7 +89,7 @@ export default function Auth() {
                                 <button onClick={() => addDigit("8")} className="button5 button2-font">8</button>
                                 <button onClick={() => addDigit("9")} className="button5 button2-font">9</button>
                                 <button onClick={() => addDigit("0")} className="button5 button2-font">0</button>
-                                <button onClick={()=>clearAll()} className="button5 button2-font">Borrar</button>
+                                <button onClick={()=>clear()} className="button5 button2-font">Borrar</button>
                             </div>
 
                             <div className="pin-container">
@@ -79,12 +97,28 @@ export default function Auth() {
                                 <div className="pin-screen">  
                                     <p className="pin pin-font">{pin}</p>             
                                 </div>
-                                
-                                <button onClick={authSubmit} disabled={pin?.length !== 4} className="next-button continue-button">
-                                    <span className="icon">
-                                        <FaChevronRight/>
-                                    </span>
-                                </button>
+
+                                <>
+                                    <button onClick={authSubmit} id="animate.css" disabled={pin?.length !== 4} className="next-button continue-button">
+                                        <span className="icon">
+                                            <FaChevronRight/>
+                                        </span>
+                                    </button>
+                                    <ToastContainer
+                                        position="top-center"
+                                        autoClose={5000}
+                                        hideProgressBar={false}
+                                        newestOnTop={false}
+                                        closeOnClick
+                                        rtl={false}
+                                        pauseOnFocusLoss
+                                        draggable
+                                        pauseOnHover
+                                        theme="light"  
+                                        />
+                                        
+                                </>
+
                             </div>         
                         </div>  
                         

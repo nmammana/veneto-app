@@ -1,0 +1,28 @@
+$green: #00B745;
+$blue: #008DC8;
+$white: #FFFFFF;
+$red: #E81C00;
+$middle-gray: #969696;
+$light-gray: #ccc;
+$light-gray2: #d1d1d1;
+
+.busy-button{
+    color: $white;
+    border-color: $light-gray2;
+    background-color: $light-gray2;
+    opacity: .9;
+
+}
+
+.notAvailable-button{
+    color: $white;
+    border-color: $light-gray2;
+    background-color: $light-gray2;
+    opacity: .9;
+}
+
+.selected-button{
+    color: $white;
+    border-color: $blue;
+    background-color: $blue;
+}

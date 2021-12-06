@@ -5,20 +5,29 @@ import Layout from '../components/Layout';
 export const ReservationsContext = createContext();
 
 export default function ReservationsContextProvider({children}) {
-    //const [reservations, setReservations] = useState([]);
-    const [user, setUser] = useState({
+    const [auth, setAuth] = useState({
+        pin: 0,
         tower: 0,
-        wing: 0,
         floor: 0,
         apartment: "",
-        pin: 0,
+        wing: 0,
     });
 
+    const [userId, setUserId] = useState("");
+
     const [reservation, setReservation] = useState({
-        userId: "",
+        user: "",
         type: "",
         hours: [],       
     });
+
+    const [fieldSelected, setFieldSelected] = useState({
+        name:"",
+        field:"",
+        icon:"",
+        selected:"",
+        type:"",
+    })
     
 
     const [isLoadingReservations, setIsLoadingReservations] = useState(true);
@@ -30,6 +39,7 @@ export default function ReservationsContextProvider({children}) {
 
     useEffect(() => {
         updateReservations();
+        console.log('env vble', process.env.REACT_APP_API_URL)
     },[])
 
     if(isLoadingReservations){
@@ -41,7 +51,9 @@ export default function ReservationsContextProvider({children}) {
     }
 
     return (
-        <ReservationsContext.Provider value={{user, setUser, reservation, setReservation}}>
+        <ReservationsContext.Provider 
+            value={{ auth, setAuth, userId, setUserId, reservation, 
+                    setReservation, fieldSelected, setFieldSelected}}>
             {children}
         </ReservationsContext.Provider>
     )

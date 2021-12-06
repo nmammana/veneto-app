@@ -24,17 +24,18 @@ $white: #FFFFFF;
             }
         }
         .sports-container{
-            padding: 0 2em 1em;
+            padding: 2em 2em 3em;
             display: flex;
             flex-direction: column;
             .sports-wrapper{
                 display: flex;
                 flex-wrap: wrap;
-                gap: 1.8em;
+                gap: 2em;
                 justify-content: space-between;
             }
             .continue-container{
-                padding: 2em 0;
+                height: 100%;
+                padding: 4em 0em 0em;
                 display: flex;
                 justify-content: flex-end;
             }

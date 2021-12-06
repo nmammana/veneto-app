@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout'
 import './Sports.scss';
@@ -10,50 +10,57 @@ import SportButton from '../../components/SportButton/SportButton';
 
 export default function Sports() {
     const navigate  = useNavigate();
-    const {reservation, setReservation} = useContext(ReservationsContext);
+    const {reservation, setReservation, setFieldSelected} = useContext(ReservationsContext);
 
-    const typesOfField = [
+    const [typesOfField, setTypesOfField] = useState([
         {
             name: "Fútbol",
             field: "Cancha 1",
             icon: "ico ico-soccer",
-            ///selected: false,
-            type: "FOOTBALL_A",
+            selected: false,
+            type: "FOOTBALL",
         },{
             name: "Tenis",
             field: "Cancha 1",
             icon: "ico ico-tennis",
-            //selected: false,
-            type: "TENNIS_A",
+            selected: false,
+            type: "TENNIS",
         },{
             name: "Paddle",
             field: "Cancha 1",
             icon: "ico ico-paddle",
-            ///selected: false,
+            selected: false,
             type: "PADDLE_A",
         },{
             name: "Paddle",
             field: "Cancha 2",
             icon: "ico ico-paddle",
-            ///selected: false,
+            selected: false,
             type: "PADDLE_B",
         },{
             name: "Bochas",
             field: "Cancha 1",
             icon: "ico ico-bowling",
-            ///selected: false,
+            selected: false,
             type: "BOWLING_A",
         },{
             name: "Bochas",
             field: "Cancha 2",
             icon: "ico ico-bowling",
-            ///selected: false,
+            selected: false,
             type: "BOWLING_B"
         },
-    ]
+    ])
 
     const selectField = (type) => {
-        setReservation({...reservation, type: type});
+        setReservation({...reservation, type: type.type});
+        setFieldSelected(type);
+        setTypesOfField(typesOfField.map(typeOfField => 
+            type.type === typeOfField.type ?  
+                {...typeOfField, selected : true}
+            :
+                {...typeOfField, selected : false}
+        ));
     }
     
     const sportSubmit = () => {
@@ -69,7 +76,7 @@ export default function Sports() {
                             <div className="rectangle"></div>
                         </div>
                         <div className="heading-container">
-                            <Link to="/auth" className="back-link">
+                            <Link to="/home" className="back-link">
                                 <button className="back-button">
                                     <span className="icon">
                                         <FaChevronLeft/>

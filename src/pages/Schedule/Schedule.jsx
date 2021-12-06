@@ -5,27 +5,149 @@ import './Schedule.scss';
 import '../../assets/icons/iconosVeneto-v1.0/style.scss';
 import {FaChevronLeft, FaChevronRight} from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
-import ScheduleTable from '../../Sections/ScheduleTable/ScheduleTable';
-import MySchedule from '../../Sections/MySchedule/MySchedule';
+import ScheduleTable from './ScheduleTable/ScheduleTable';
+
 import { ReservationsContext } from '../../contexts/ReservationsContext';
+import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Schedule() {
     const navigate  = useNavigate();
-    const {reservation, setReservation} = useContext(ReservationsContext);
-    const [isReserving, setIsReserving] = useState(true);
+    const {reservation, setReservation, fieldSelected} = useContext(ReservationsContext);
+    
+    const hours = [ 
+        "08:00", "08:30", "09:00", "09:30",
+        "10:00", "10:30", "11:00", "11:30", 
+        "12:00", "12:30", "13:00", "13:30", 
+        "14:00", "14:30", "15:00", "15:30", 
+        "16:00", "16:30", "17:00", "17:30", 
+        "18:00", "18:30", "19:00", "19:30", 
+        "20:00", "20:30", "21:00", "21:30", 
+        "22:00", "22:30", "23:00", "23:30", 
+        "00:00",];
+    const [selectedHours, setSelectedHours] = useState([]); 
+    const [busyHours, setBusyHours] = useState([]);
+    const [notAvailableHours, setNotAvailableHours] = useState([]);
+    
+    const [firstSelection, setFirstSelection] = useState(true);
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");
 
-    const scheduleSubmit = () => {
-        //todo: cargar horario en context 
-        navigate("/reservation");
+    const updateSchedule = (selectedHour) => {
+        let hoursUpdated = [];
+        if(firstSelection){
+            hours.forEach(hour => {
+                if(hour === selectedHour){
+                    hoursUpdated.push(hour);
+                }
+            })
+            setFirstSelection(false);
+        }else{
+            if(selectedHour === startTime){
+                console.log('hora de finalizacion igual a la de inicio:', startTime, selectedHour)
+                setStartTime("");
+                hoursUpdated=[];
+            }else{
+                let selectIntermediateTimes = false;
+
+                for(let i=0; i<hours.length; i++){
+                    if(selectIntermediateTimes && busyHours.includes(hours[i])){
+                        hoursUpdated=[];
+                        selectIntermediateTimes= false;
+                        break;
+                    }else if(selectedHours.includes(hours[i])){
+                        selectIntermediateTimes = true;
+                        hoursUpdated.push(hours[i]);
+                    }else if(selectIntermediateTimes && (hours[i] !== selectedHour)){
+                        hoursUpdated.push(hours[i]);
+                    }else if(hours[i] === selectedHour){
+                        hoursUpdated.push(hours[i]);
+                        selectIntermediateTimes = false;
+                    }
+                }
+                if(hoursUpdated.length > 4){
+                    hoursUpdated=[];
+                    setStartTime("");
+                    setEndTime("");
+                    toast.warn('El tiempo máximo de duración por reserva es de 2 horas.', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                }
+            }
+           
+            setFirstSelection(true);
+            
+        }
+        setSelectedHours(hoursUpdated);
+
     }
 
-    useEffect(() => {
-        console.log('reservation.type',reservation.type)
-    }, [reservation])
+    const selectSchedule = (selectedHour) => {  
+        if(firstSelection){
+            if(selectedHour !== "00:00"){
+                setStartTime(selectedHour);
+                updateSchedule(selectedHour);
+            }else{
+                console.log('Error: Invalid start time')
+            }
+        }else{
+            const startHourOnly = parseInt(startTime.split(":")[0]);
+            const startMinuteOnly = parseInt(startTime.split(":")[1]);
+            let selectedHourOnly = parseInt(selectedHour.split(":")[0]);
+            let selectedMinuteOnly = parseInt(selectedHour.split(":")[1]);
+            if(parseInt(selectedHour.split(":")[0]) < 6){
+                selectedHourOnly = parseInt(selectedHour.split(":")[0]) + 24;
+            }
+           /*  console.log('startHour',startHour);
+            console.log('startMinute',startMinute);
+            console.log('selectedHour',selectedHour);
+            console.log('selectedMinute',selectedMinute); */
+            if(startHourOnly > selectedHourOnly){
+                console.log('error: invalid hour selected. Start hour bigger than selected');
+            }else if((startHourOnly === selectedHourOnly) && (startMinuteOnly > selectedMinuteOnly)){
+                console.log('error: invalid hour selected. Same hour but start minute bigger than selected');
+            }else{
+                setEndTime(selectedHour);
+                updateSchedule(selectedHour);
+            } 
+        }
+    }
 
-    /* const toggleIsReserving = () => {
+    const scheduleSubmit = () => {
+        setReservation({...reservation, hours: selectedHours});
+        navigate("/reservation");
+    }
+    
+    useEffect(() => {
+
+        const fetchBusyHours = async() => {
+            const response = await axios.get(`http://${process.env.REACT_APP_API_URL}/reservation/reservated-hours?type=${reservation.type}`);
+            setBusyHours(response.data);
+
+            let notAvailableHoursArr = [];
+            for(let i=0; i<hours.length; i++){
+                if(firstSelection){
+                    if(response.data.includes(hours[i]) && !response.data.includes(hours[i-1])){
+                        notAvailableHoursArr.push(hours[i-1]);
+                    }
+                }else{
+                    if(response.data.includes(hours[i]) && !response.data.includes(hours[i+1])){
+                        notAvailableHoursArr.push(hours[i+1]);
+                    } 
+                } 
+            }
+            console.log('notAvailableHoursArr', notAvailableHoursArr);
+            setNotAvailableHours(notAvailableHoursArr);
+        }
+        fetchBusyHours();
         
-    } */
+    }, [firstSelection]);
 
     return (
         <Layout>
@@ -44,41 +166,48 @@ export default function Schedule() {
                                 </button>
                             </Link>
                             
-                            <div className="options">
-                                <div onClick={() => setIsReserving(true)} className="option" style={{borderColor: isReserving ? '#969696' : 'transparent'}}>
-                                    <h3 className="body1">Nuevo turno</h3>
-                                </div>
-                                <div onClick={() => setIsReserving(false)} className="option" style={{borderColor: isReserving ? 'transparent' : '#969696'}}>
-                                    <h3 className="body1">Mis turnos</h3>
-                                </div>
-                            </div>
-                            {/* <h3 className="title heading2">Turnos</h3> */}
+                            <h3 className="title heading2">Seleccione su turno</h3>
 
-                            <button className="sport-button2 sport-selected">
-                                <span className="icon ico ico-soccer"></span>
-                                <div className="description">
-                                    <p className="sport sport-font3">Fútbol</p>
-                                    <p className="field sport-font4">Cancha 1</p>    
-                                </div>
-                            </button>
-
+                            {fieldSelected.type &&
+                                <button className="sport-button2 sport-selected">
+                                    <span className={`icon ${fieldSelected.icon}`}></span>
+                                    <div className="description">
+                                        <p className="sport sport-font3">{fieldSelected.name}</p>
+                                        <p className="field sport-font4">{fieldSelected.field}</p>    
+                                    </div>
+                                </button>
+                            }
                         </div>
                         
                         <div className="schedule-container">
-                            {isReserving ? (
-                                <ScheduleTable/>
-                            ):(
-                                <MySchedule/>
-                            )}
+                            <ScheduleTable  selectSchedule={selectSchedule} 
+                                            firstSelection={firstSelection}
+                                            startTime={startTime}
+                                            endTime={endTime}
+                                            selectedHours={selectedHours}
+                                            busyHours={busyHours}
+                                            notAvailableHours={notAvailableHours}
+                                            hours={hours}/>
                         </div> 
                         <div className="continue-container">
-                            <button onClick={scheduleSubmit} className="next-button continue-button">
+                            <button onClick={scheduleSubmit} disabled={selectedHours?.length<=1} className="next-button continue-button">
                                 <span className="icon">
                                     <FaChevronRight/>
                                 </span>
                             </button>
                         </div>
-                        
+                        <ToastContainer
+                            position="top-center"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="light"
+                            />
                     </div>
                 </div>
             </main>

@@ -1,0 +1,16 @@
+$green: #00B745;
+$blue: #008DC8;
+$white: #FFFFFF;
+$red: #E81C00;
+
+.selected{
+    background-color: $blue;
+    .icon{
+        color: $white;
+    }
+    .description{
+        p{
+            color: $white;
+        }
+    }
+}

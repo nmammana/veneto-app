@@ -9,10 +9,10 @@ import { ReservationsContext } from '../../contexts/ReservationsContext';
 
 export default function Wings() {
     const navigate  = useNavigate();
-    const {user, setUser} = useContext(ReservationsContext);
+    const {auth, setAuth} = useContext(ReservationsContext);
     
     const handleClick = (wingNumber) => {
-        setUser({...user, wing: wingNumber});
+        setAuth({...auth, wing: wingNumber});
         navigate("/apartments");
     }
 

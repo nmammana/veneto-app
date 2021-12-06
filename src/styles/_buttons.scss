@@ -2,6 +2,7 @@ $green: #00B745;
 $blue: #008DC8;
 $white: #FFFFFF;
 $red: #E81C00;
+$middle-gray: #969696;
 
 .button1{
     background: $green 0% 0% no-repeat padding-box;
@@ -11,7 +12,7 @@ $red: #E81C00;
     opacity: 1;
     text-align: center;
     letter-spacing: 0px;
-    color: #FFFFFF;
+    color: $white;
     opacity: 1;
     padding: .65em 1.35em;
     display: flex;
@@ -100,6 +101,23 @@ $red: #E81C00;
     justify-content: center;
 }
 
+.button6{
+    border: 4px solid $blue;
+    border-radius: 80px;
+    opacity: 1;
+    text-align: center;
+    letter-spacing: 0px;
+    color: $blue;
+
+    padding: .65em 1.1em;
+    width: 50%;
+    height: 2.67em;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .sport-button{
     border: 4px solid $blue;
     border-radius: 65px;
@@ -112,13 +130,6 @@ $red: #E81C00;
     .icon{
         font-size: 3rem;
         color: $blue;
-    }
-}
-
-.sport-button:focus{
-    background: $blue 0% 0% no-repeat padding-box;
-    span,p{
-        color: $white;
     }
 }
 
@@ -141,7 +152,7 @@ $red: #E81C00;
     }
 }
 
-.shedule-button{
+.schedule-button{
     border: 4px solid $blue;
     border-radius: 80px;
     opacity: 1;
@@ -163,11 +174,11 @@ $red: #E81C00;
     opacity: 1;
     border: none;
     outline: none;
-    max-width: 6.25em;
+    min-width: 8em;
     letter-spacing: 0px;
     color: $white;
     text-transform: uppercase;
-    padding: .3em 1.5em;
+    padding: .7em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -175,7 +186,7 @@ $red: #E81C00;
 
 .back-button{
     border-radius: 50%;
-    background: #969696 0% 0% no-repeat padding-box;
+    background: $middle-gray 0% 0% no-repeat padding-box;
     border: none;
     outline: none;
     opacity: 1;
