@@ -28,11 +28,9 @@
         .buttons-container{
             display: flex;
             flex-direction: column;
-            //grid-template-columns: repeat(2,1fr);
             align-items: center;
             justify-items: center;
-            gap: 2em;
-            //column-gap: 4.5em;
+            gap: 3em;
             padding: 2em 5em 5em;
         }
         

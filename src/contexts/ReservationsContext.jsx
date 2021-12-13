@@ -5,15 +5,17 @@ import Layout from '../components/Layout';
 export const ReservationsContext = createContext();
 
 export default function ReservationsContextProvider({children}) {
-    const [auth, setAuth] = useState({
+    
+    const [user, setUser] = useState({
         pin: 0,
         tower: 0,
         floor: 0,
         apartment: "",
         wing: 0,
+        userId: "",
+        name: "",
+        identityNumber: "",
     });
-
-    const [userId, setUserId] = useState("");
 
     const [reservation, setReservation] = useState({
         user: "",
@@ -52,8 +54,9 @@ export default function ReservationsContextProvider({children}) {
 
     return (
         <ReservationsContext.Provider 
-            value={{ auth, setAuth, userId, setUserId, reservation, 
-                    setReservation, fieldSelected, setFieldSelected}}>
+            value={{    user, setUser, 
+                        reservation, setReservation, 
+                        fieldSelected, setFieldSelected}}>
             {children}
         </ReservationsContext.Provider>
     )

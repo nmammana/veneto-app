@@ -92,17 +92,15 @@ export default function Sports() {
                                 {typesOfField.map((typeOfField, index) => (
                                     <SportButton key={index} typeOfField={typeOfField} selectField={selectField}/>
                                 ))}
-                            </div>
-                            <div className="continue-container">
-                                <button onClick={sportSubmit} disabled={!reservation.type} 
-                                        className="next-button continue-button">
-                                    <span className="icon">
-                                        <FaChevronRight/>
-                                    </span>
-                                </button>
-                            </div>
-                              
+                            </div>  
                         </div> 
+
+                        <button onClick={sportSubmit} disabled={!reservation.type} 
+                                className="next-button continue-button">
+                            <span className="icon">
+                                <FaChevronRight/>
+                            </span>
+                        </button>
                         
                     </div>
                 </div>

@@ -1,14 +1,23 @@
 import React, { useContext, useRef } from 'react'
 import IdleTimer from 'react-idle-timer';
-import { Navigate, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { ReservationsContext } from '../contexts/ReservationsContext';
 export default function IdleTimerContainer({children}) {
     const idleTimerRef = useRef(null)
-    const {setUserId} = useContext(ReservationsContext);
+    const {setUser} = useContext(ReservationsContext);
     const navigate  = useNavigate();
 
     const onIdle = () => {
-        setUserId("");
+        setUser({
+            pin: 0,
+            tower: 0,
+            floor: 0,
+            apartment: "",
+            wing: 0,
+            userId: "",
+            name: "",
+            identityNumber: "",
+        });
         navigate("/")
     }
 
@@ -16,7 +25,7 @@ export default function IdleTimerContainer({children}) {
         <div>
             <IdleTimer 
                 ref={idleTimerRef}
-                timeout={90 * 1000} 
+                timeout={360 * 1000} 
                 onIdle={onIdle}>
                 {children}
             </IdleTimer>

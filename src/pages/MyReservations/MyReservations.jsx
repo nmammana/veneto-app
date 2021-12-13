@@ -11,13 +11,13 @@ import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 
 export default function MyReservations() {
-    const {userId} = useContext(ReservationsContext);
+    const {user} = useContext(ReservationsContext);
     const [myReservations, setMyReservations] = useState([])
     const today = new Date;
 
     useEffect(() => {
         const fetchReservationsByUser = async () => {
-            const response = await axios.get(`http://${process.env.REACT_APP_API_URL}/reservation/by-user/?user=${userId}`);
+            const response = await axios.get(`http://${process.env.REACT_APP_API_URL}/reservation/by-user/?user=${user.userId}`);
             if(response.data){
                 let reservationsArray = [];
                 
@@ -55,7 +55,7 @@ export default function MyReservations() {
                 setMyReservations(reservationsArray);
             }
         }
-        if(userId){
+        if(user.userId){
             fetchReservationsByUser();
         }
         
@@ -76,7 +76,7 @@ export default function MyReservations() {
                 })
                 setMyReservations(reservationsUpdated);
                 toast.success('Reserva cancelada con éxito!', {
-                    position: "top-center",
+                    position: "bottom-center",
                     autoClose: 5000,
                     hideProgressBar: false,
                     closeOnClick: true,
@@ -93,8 +93,8 @@ export default function MyReservations() {
 
     return (
         <Layout>
-            <main className="schedule-main">
-                <div className="schedule-main__wrapper">
+            <main className="myschedule-main">
+                <div className="myschedule-main__wrapper">
                     <div className="selection-container">
                         <div className="rectangle-container">
                             <div className="rectangle"></div>
@@ -112,13 +112,21 @@ export default function MyReservations() {
 
                         </div>
                         
-                        <div className="schedule-container">
-                            <MySchedule 
+                        <div className="myschedule-container">
+                            {myReservations?.length !== 0 ? (
+                                <MySchedule 
                                 myReservations={myReservations} 
-                                deleteReservation={deleteReservation}/>       
+                                deleteReservation={deleteReservation}/>
+                            ):(
+                                <div className="message-container">
+                                    <p className="body2 message">Aún no tenés reservas 🤨</p>
+                                </div>
+                                
+                            )}
+                                   
                         </div> 
                         <ToastContainer
-                            position="top-center"
+                            position="bottom-center"
                             autoClose={5000}
                             hideProgressBar={false}
                             newestOnTop={false}

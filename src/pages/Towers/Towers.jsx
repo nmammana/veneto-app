@@ -6,12 +6,12 @@ import './Towers.scss';
 import { ReservationsContext } from '../../contexts/ReservationsContext';
 
 export default function Towers() {
-    const {auth, setAuth} = useContext(ReservationsContext)
+    const {user, setUser} = useContext(ReservationsContext)
 
     const navigate  = useNavigate();
 
     const handleClick = (towerNumber) => {
-        setAuth({...auth, tower: towerNumber});
+        setUser({...user, tower: towerNumber});
         navigate("/wings");
     }
 
@@ -26,10 +26,10 @@ export default function Towers() {
                         
                         <h3 className="title heading2">Seleccione su Torre</h3>
                         <div className="buttons-container">
-                            <button onClick={()=>handleClick(1)} className="button2 button-font">Torre 01</button>
-                            <button onClick={()=>handleClick(2)} className="button2 button-font">Torre 02</button>
-                            <button onClick={()=>handleClick(3)} className="button2 button-font">Torre 03</button>
-                            <button onClick={()=>handleClick(4)} className="button2 button-font">Torre 04</button>
+                            <button onClick={()=>handleClick(1)} className="button2 button-font column1">Torre 01</button>
+                            <button onClick={()=>handleClick(2)} className="button2 button-font column2">Torre 02</button>
+                            <button onClick={()=>handleClick(3)} className="button2 button-font column1">Torre 03</button>
+                            <button onClick={()=>handleClick(4)} className="button2 button-font column2">Torre 04</button>
                         </div>
                     </div>
                 </div>

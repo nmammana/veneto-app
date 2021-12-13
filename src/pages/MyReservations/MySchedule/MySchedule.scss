@@ -1,7 +1,13 @@
 .mySchedule{
     padding: 1em 0;
+    
     tbody{
-        padding: 1em 0;
+        padding: 1em 1em;
+        display: block;
+        height: 16em;
+        overflow-y: auto;   
+        overflow-x: hidden;
+
         .reservation-row{
             display: grid;
             grid-template-columns: repeat(12,1fr);
@@ -24,6 +30,29 @@
                 justify-self: end;
             }
         }
+    }
+
+    tbody::-webkit-scrollbar {
+        width: 10px;  
+    }
+
+    tbody::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;   
+    }
+    
+    tbody::-webkit-scrollbar-thumb:hover {
+        background: #b3b3b3;
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+    }
+    
+    tbody::-webkit-scrollbar-thumb:active {
+        background-color: #999999;
+    }
+
+    tbody::-webkit-scrollbar-track {
+        background: #e1e1e1;
+        border-radius: 3px;
     }
     
 }

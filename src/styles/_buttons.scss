@@ -1,219 +1,219 @@
-$green: #00B745;
-$blue: #008DC8;
-$white: #FFFFFF;
-$red: #E81C00;
+$green: #00b745;
+$blue: #008dc8;
+$white: #ffffff;
+$red: #e81c00;
 $middle-gray: #969696;
 
-.button1{
-    background: $green 0% 0% no-repeat padding-box;
-    border-radius: 80px;
-    border: none;
-    outline: none;
-    opacity: 1;
-    text-align: center;
-    letter-spacing: 0px;
-    color: $white;
-    opacity: 1;
-    padding: .65em 1.35em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.button1 {
+  background: $green 0% 0% no-repeat padding-box;
+  border-radius: 80px;
+  border: none;
+  outline: none;
+  opacity: 1;
+  text-align: center;
+  letter-spacing: 0px;
+  color: $white;
+  opacity: 1;
+  padding: 0.65em 1.35em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.button2{
-    border: 4px solid $blue;
-    border-radius: 80px;
-    opacity: 1;
-    text-align: center;
-    letter-spacing: 0px;
-    color: $blue;
+.button2 {
+  border: 4px solid $blue;
+  border-radius: 80px;
+  opacity: 1;
+  text-align: center;
+  letter-spacing: 0px;
+  color: $blue;
 
-    padding: .65em 1.1em;
-    width: 6.5em;
-    height: 2.67em;
+  padding: 0.65em 1.1em;
+  width: 6.5em;
+  height: 2.67em;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.button2:hover{
+.button2:hover {
+  background: $blue 0% 0% no-repeat padding-box;
+  opacity: 1;
+  color: $white;
+}
+
+.button3 {
+  border: 4px solid $blue;
+  border-radius: 80px;
+  opacity: 1;
+  text-align: center;
+  letter-spacing: 0px;
+  color: $blue;
+  padding: 0.3em 0.4em;
+  width: 4.6em;
+  height: 2em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .button3:active{
     background: $blue 0% 0% no-repeat padding-box;
     opacity: 1;
     color: $white;
+} */
+
+.button4 {
+  border: 4px solid $green;
+  border-radius: 80px;
+  opacity: 1;
+  text-align: center;
+  letter-spacing: 0px;
+  color: $green;
+
+  padding: 0.3em 0.5em;
+  width: 4.6em;
+  height: 2em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.button3{
-    border: 4px solid $blue;
-    border-radius: 80px;
-    opacity: 1;
-    text-align: center;
-    letter-spacing: 0px;
+.button5 {
+  background: $blue 0% 0% no-repeat padding-box;
+  border-radius: 50px;
+  opacity: 1;
+  border: none;
+  outline: none;
+
+  letter-spacing: 0px;
+  color: $white;
+
+  padding: 0.3em 1.4em;
+  width: 3.75em;
+  height: 2em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button6 {
+  border: 4px solid $blue;
+  border-radius: 80px;
+  opacity: 1;
+  text-align: center;
+  letter-spacing: 0px;
+  color: $blue;
+
+  padding: 0.65em 1.1em;
+  width: 50%;
+  height: 2.67em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sport-button {
+  border: 4px solid $blue;
+  border-radius: 65px;
+  opacity: 1;
+  padding: 0.62em 1.2em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+  .icon {
+    font-size: 3rem;
     color: $blue;
-    padding: .3em .4em;
-    width: 4.6em;
-    height: 2em;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  }
 }
 
-.button3:active{
-    background: $blue 0% 0% no-repeat padding-box;
-    opacity: 1;
+.sport-button2 {
+  background: $blue 0% 0% no-repeat padding-box;
+  border-radius: 65px;
+  opacity: 1;
+  border: none;
+  outline: none;
+  max-width: 260px;
+  padding: 0.5em 0.9em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75em;
+
+  .icon {
+    font-size: 2rem;
     color: $white;
+  }
 }
 
-.button4{
-    border: 4px solid $green;
-    border-radius: 80px;
-    opacity: 1;
-    text-align: center;
-    letter-spacing: 0px;
-    color: $green;
-    
-    padding: .3em .5em;
-    width: 4.6em;
-    height: 2em;
+.schedule-button {
+  border: 4px solid $blue;
+  border-radius: 80px;
+  opacity: 1;
+  text-align: center;
+  letter-spacing: 0px;
+  color: $blue;
+  padding: 0.3em 0.4em;
+  width: 4em;
+  height: 2em;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.button5{
-    background: $blue 0% 0% no-repeat padding-box;
-    border-radius: 50px;
-    opacity: 1;
-    border: none;
-    outline: none;
+.cancel-button {
+  background: $red 0% 0% no-repeat padding-box;
+  border-radius: 20px;
+  opacity: 1;
+  border: none;
+  outline: none;
+  min-width: 8em;
+  letter-spacing: 0px;
+  color: $white;
+  text-transform: uppercase;
+  padding: 0.7em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    letter-spacing: 0px;
+.back-button {
+  border-radius: 50%;
+  background: $middle-gray 0% 0% no-repeat padding-box;
+  border: none;
+  outline: none;
+  opacity: 1;
+  width: 3.3em;
+  height: 3.3em;
+  .icon {
     color: $white;
-
-    padding: .3em 1.4em;
-    width: 3.75em;
-    height: 2em;
-
+    font-size: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
 }
 
-.button6{
-    border: 4px solid $blue;
-    border-radius: 80px;
-    opacity: 1;
-    text-align: center;
-    letter-spacing: 0px;
-    color: $blue;
-
-    padding: .65em 1.1em;
-    width: 50%;
-    height: 2.67em;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sport-button{
-    border: 4px solid $blue;
-    border-radius: 65px;
-    opacity: 1;
-    padding: .62em 1.2em;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1em;
-    .icon{
-        font-size: 3rem;
-        color: $blue;
-    }
-}
-
-.sport-button2{
-    background: $blue 0% 0% no-repeat padding-box;
-    border-radius: 65px;
-    opacity: 1;
-    border: none;
-    outline: none;
-    max-width: 260px;
-    padding: .5em .9em;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: .75em;
-
-    .icon{
-        font-size: 2rem;
-        color: $white;
-    }
-}
-
-.schedule-button{
-    border: 4px solid $blue;
-    border-radius: 80px;
-    opacity: 1;
-    text-align: center;
-    letter-spacing: 0px;
-    color: $blue;
-    padding: .3em .4em;
-    width: 4em;
-    height: 2em;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.cancel-button{
-    background: $red 0% 0% no-repeat padding-box;
-    border-radius: 20px;
-    opacity: 1;
-    border: none;
-    outline: none;
-    min-width: 8em;
-    letter-spacing: 0px;
+.next-button {
+  background: $green 0% 0% no-repeat padding-box;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  opacity: 1;
+  width: 4em;
+  height: 4em;
+  .icon {
     color: $white;
-    text-transform: uppercase;
-    padding: .7em;
+    font-size: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.back-button{
-    border-radius: 50%;
-    background: $middle-gray 0% 0% no-repeat padding-box;
-    border: none;
-    outline: none;
-    opacity: 1;
-    width: 3.3em;
-    height: 3.3em;
-    .icon{
-        color: $white;
-        font-size: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-}
-
-.next-button{
-    background: $green 0% 0% no-repeat padding-box;
-    border-radius: 50%;
-    border: none;
-    outline: none;
-    opacity: 1;
-    width: 4em;
-    height: 4em;
-    .icon{
-        color: $white;
-        font-size: 2.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+  }
 }

@@ -1,62 +1,86 @@
-.apartments-main{
-    .apartments-main__wrapper{
-        max-width: 1280px;
-        margin: 0 auto;
-        
-        .heading-container{
-            padding: 0 2em ;
-            display: grid;
-            grid-template-columns: repeat(12,1fr);
-            align-items: center;
-            .back-link{
-                grid-column: 1;
-                justify-self: start;
-                text-decoration: none;
-            }
-            .title{
-                grid-column: 2/12;
-                padding: 1em 0;
-            }
-        }
+$green: #00b745;
+$blue: #008dc8;
+$white: #ffffff;
+$red: #e81c00;
+$middle-gray: #969696;
 
-        .buttons-container{
-            padding: 2em 2em 3em;
-            display: grid;
-            grid-template-columns: repeat(12,1fr);
-            align-items: center;
-            row-gap: 1.5em;
-            column-gap: 1.5em;
-            .floor-label{
-                grid-column: 1/5;
-            }
-            .place1btn{
-                grid-column: 5/7;
-                justify-self: center;
-            }
-            .place2btn{
-                grid-column: 7/9;
-                justify-self: center;
-            }
-            .place3btn{
-                grid-column: 9/11;
-                justify-self: center;
-            }
-            .place4btn{
-                grid-column: 11/13;
-                justify-self: center;
-            }
-
-            .apartment-label{
-                grid-column: 1/5;
-            }
-            .selection-label{
-                grid-column: 1/7;
-            }
-            .continue-button{
-                grid-column: 11/13;
-                justify-self: end;
-            }
-        }
-            
+.apartments-main {
+  .apartments-main__wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+    .heading-container {
+      padding: 0 2em;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      align-items: center;
+      .back-link {
+        grid-column: 1;
+        justify-self: start;
+        text-decoration: none;
+      }
+      .title {
+        grid-column: 2/12;
+        padding: 1em 0;
+      }
     }
+
+    .buttons-container {
+      padding: 2em 2em 3em;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: repetar(4, 1fr);
+      align-items: center;
+      gap: 1.5em;
+      .floor-label {
+        grid-column: 1/5;
+      }
+      .place0btn {
+        grid-column: 5/7;
+        justify-self: center;
+      }
+      .place1btn {
+        grid-column: 7/9;
+        justify-self: center;
+      }
+      .place2btn {
+        grid-column: 9/11;
+        justify-self: center;
+      }
+      .place3btn {
+        grid-column: 11/13;
+        justify-self: center;
+      }
+      .active {
+        background: $blue 0% 0% no-repeat padding-box;
+        opacity: 1;
+        color: $white;
+      }
+
+      .apartment-label {
+        grid-column: 1/5;
+      }
+      .selection-label {
+        grid-column: 1/7;
+        margin: 1.337em 0 0;
+      }
+      .selection-display {
+        margin: 1.25em 0 0;
+      }
+      .floor:focus {
+        background-color: $blue;
+        color: $white;
+      }
+      .apartment:focus {
+        background-color: $blue;
+        color: $white;
+      }
+    }
+
+    .continue-button {
+      position: absolute;
+      right: 2rem;
+      bottom: 3rem;
+    }
+  }
 }

@@ -3,9 +3,9 @@ import { Navigate } from 'react-router-dom';
 import { ReservationsContext } from '../contexts/ReservationsContext';
 
 export default function PrivateRoute({children}) {
-    const {userId} = useContext(ReservationsContext);
+    const {user} = useContext(ReservationsContext);
 
-    return userId ? children : <Navigate to="/" />;
+    return user.userId ? children : <Navigate to="/" />;
 }
 
 

@@ -15,9 +15,15 @@ $green: #00B745;
             grid-template-columns: repeat(2,1fr);
             align-items: center;
             justify-items: center;
-            column-gap: 4.5em;
-            row-gap: 3.5em;
+            gap: 3.8em;
+            
             padding: 2.5em 5em 5em;
+            .column1{
+                justify-self: end;
+            }
+            .column2{
+                justify-self: start;
+            }
         }
         
     }

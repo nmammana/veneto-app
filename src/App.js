@@ -17,11 +17,13 @@ import Home from './pages/Home/Home';
 import Sports from './pages/Sports/Sports';
 import Schedule from './pages/Schedule/Schedule';
 import Reservation from './pages/Reservation/Reservation';
+import SuccessfulReservation from './pages/SuccessfulReservation/SuccessfulReservation';
 import MyReservations from './pages/MyReservations/MyReservations';
 import ReservationsContextProvider from './contexts/ReservationsContext';
 import IdleTimerContainer from './components/IdleTimerContainer';
 
 import { injectStyle } from "react-toastify/dist/inject-style";
+
 // CALL IT ONCE IN YOUR APP
 if (typeof window !== "undefined") {
   injectStyle();
@@ -46,6 +48,7 @@ export default function App() {
                 <Route path="/sports" element={ <PrivateRoute><Sports/></PrivateRoute> }/>
                 <Route path="/schedule" element={ <PrivateRoute><Schedule/></PrivateRoute> }/>
                 <Route path="/reservation" element={ <PrivateRoute><Reservation/></PrivateRoute> }/>
+                <Route path="/success" element={ <PrivateRoute><SuccessfulReservation/></PrivateRoute> }/>
                 <Route path="/myReservations" element={ <PrivateRoute><MyReservations/></PrivateRoute> }/>
                 
                 <Route path="*" element={<Error404/>}/>

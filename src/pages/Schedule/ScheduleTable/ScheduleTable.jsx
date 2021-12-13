@@ -8,7 +8,7 @@ export default function ScheduleTable({selectSchedule, firstSelection, hours, se
         <>
 
             {firstSelection && selectedHours?.length===0 &&
-                <p className="body2 instruction">Seleccioná el horario en el que querés empezar tu turno. 
+                <p className="body2 instruction">Seleccioná el horario en el que <br/> querés empezar tu turno. 
                     <span>{busyHours?.length>0 && ` Lamentablemente, los que aparecen en color gris ya no están disponibles 😪`}</span>
                 </p>
             }

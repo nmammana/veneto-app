@@ -15,23 +15,37 @@ import { ToastContainer, toast } from "react-toastify";
 
 export default function Auth() {
     const navigate  = useNavigate();
-    const {auth, setAuth, setUserId, reservation, setReservation} = useContext(ReservationsContext);
+    const {user, setUser, reservation, setReservation} = useContext(ReservationsContext);
     const [pin, setPin] = useState("");
 
     const authSubmit = async () => {
         try {
-            let res = await axios.post(`http://${process.env.REACT_APP_API_URL}/auth/`, auth);
+            let res = await axios.post(`http://${process.env.REACT_APP_API_URL}/auth/`, {
+                pin: user.pin,
+                tower: user.tower,
+                floor: user.floor,
+                apartment: user.apartment,
+                wing: user.wing,
+            });
             let data = res.data;
-            console.log(data);
-            if(data.userId){
-                setUserId(data.userId);
-                setReservation({...reservation, user: data.userId})
+            if(data._id){
+                setUser({
+                    pin: data.pin,
+                    tower: data.tower,
+                    floor: data.floor,
+                    apartment: data.apartment,
+                    wing: data.wing,
+                    userId: data._id,
+                    name: data.name,
+                    identityNumber: data.identityNumber,
+                })
+                setReservation({...reservation, user: data._id})
                 navigate("/home");
             }
         }catch(e){
             console.error("LOGIN ERROR: ", e)
             toast.error("Error: Usuario no encontrado", {
-                position: "top-center",
+                position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -45,7 +59,7 @@ export default function Auth() {
     const addDigit = (digit) => {
         if(pin.length<4){
             if(pin.length === 3){
-                setAuth({...auth, pin: parseInt(`${pin}${digit}`)});
+                setUser({...user, pin: parseInt(`${pin}${digit}`)});
                 setPin(pin => `${pin}${digit}`);
             }else{
                 setPin(pin => `${pin}${digit}`);
@@ -92,36 +106,32 @@ export default function Auth() {
                                 <button onClick={()=>clear()} className="button5 button2-font">Borrar</button>
                             </div>
 
-                            <div className="pin-container">
-                                
-                                <div className="pin-screen">  
-                                    <p className="pin pin-font">{pin}</p>             
-                                </div>
-
-                                <>
-                                    <button onClick={authSubmit} id="animate.css" disabled={pin?.length !== 4} className="next-button continue-button">
-                                        <span className="icon">
-                                            <FaChevronRight/>
-                                        </span>
-                                    </button>
-                                    <ToastContainer
-                                        position="top-center"
-                                        autoClose={5000}
-                                        hideProgressBar={false}
-                                        newestOnTop={false}
-                                        closeOnClick
-                                        rtl={false}
-                                        pauseOnFocusLoss
-                                        draggable
-                                        pauseOnHover
-                                        theme="light"  
-                                        />
-                                        
-                                </>
-
-                            </div>         
+                            <div className="pin-screen">  
+                                <p className="pin pin-font">{pin}</p>             
+                            </div>                                
+      
                         </div>  
                         
+                        
+                        <button onClick={authSubmit} id="animate.css" disabled={pin?.length !== 4} className="next-button continue-button">
+                            <span className="icon">
+                                <FaChevronRight/>
+                            </span>
+                        </button>
+                        
+
+                        <ToastContainer
+                            position="bottom-center"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="light"  
+                            />
                     </div>
                 </div>
             </main>

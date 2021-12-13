@@ -12,7 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 export default function Reservation() {
     const navigate  = useNavigate();
-    const {reservation, auth, fieldSelected, setUserId} = useContext(ReservationsContext);
+    const {reservation, user, fieldSelected, setUser} = useContext(ReservationsContext);
 
     useEffect(() => {
         console.log('reservation',reservation)
@@ -22,17 +22,15 @@ export default function Reservation() {
         try {
             let response = await axios.post(`http://${process.env.REACT_APP_API_URL}/reservation`, reservation);
             let data = response.data;
-            console.log(data);
-            //todo: mostrar mensaje de reserva guardada correctamente??, al dar OK direccionar a  "/"
+            //todo: mostrar mensaje de reserva guardada correctamente, al dar OK direccionar a  "/"
             if(data){
-                setUserId("");
-                navigate("/");
+               navigate("/success");
             }
             
         }catch(e){
             console.error("RESERVATION ERROR: ", e)
             toast.error("Error: Por favor comience de nuevo su reserva", {
-                position: "top-center",
+                position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -83,15 +81,15 @@ export default function Reservation() {
 
                             <div className="user-details">
                                 <table>
-                                    {auth.apartment &&
+                                    {user.apartment &&
                                         <tbody>
                                             <tr>
                                                 <td className="category body2">Departamento:</td>
-                                                <td className="value body3">Torre {auth.tower}, Ala {auth.wing}, {auth.floor}°{auth.apartment}</td>
+                                                <td className="value body3">Torre {user.tower}, Ala {user.wing}, {user.floor}°{user.apartment}</td>
                                             </tr>
                                             <tr>
                                                 <td className="category body2">Propietario:</td>
-                                                <td className="value body3 name">Nombre del propietario</td>
+                                                <td className="value body3 name">{user.name}</td>
                                             </tr>
                                         </tbody>
                                     }
@@ -100,7 +98,7 @@ export default function Reservation() {
 
                             <button className="button1 button-font" onClick={submitReservation}>Confirmar</button>
                             <ToastContainer
-                                position="top-center"
+                                position="bottom-center"
                                 autoClose={5000}
                                 hideProgressBar={false}
                                 newestOnTop={false}

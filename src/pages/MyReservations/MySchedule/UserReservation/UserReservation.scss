@@ -1,0 +1,28 @@
+$middle-gray: #969696;
+$light-gray: #ccc;
+$light-gray2: #d1d1d1;
+$blue: #008DC8;
+
+.reservation-row{
+    border-bottom: 4px solid $light-gray;
+}
+
+.modal-body{
+    padding: 2.5em;
+    display: flex;
+    justify-content: center;
+}
+.modal-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5em;
+    padding: 1em 0 0;
+    button{
+        width: 25%;
+    }
+    button:hover{
+        color: #FFFFFF;
+        background-color: $blue;
+    }
+}

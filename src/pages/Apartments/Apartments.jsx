@@ -8,17 +8,50 @@ import { ReservationsContext } from '../../contexts/ReservationsContext';
 
 export default function Apartments() {
     const navigate  = useNavigate();
-    const {auth, setAuth} = useContext(ReservationsContext);
+    const {user, setUser} = useContext(ReservationsContext);
     const [showSelected, setShowSelected] = useState(false); 
-    
+    const [floors, setFloors] = useState([
+        { floor: 0, isActive: false },
+        { floor: 1, isActive: false },
+        { floor: 2, isActive: false },
+        { floor: 3, isActive: false },
+    ])
+    const [apartments, setApartments] = useState([
+        { apartment:'A' ,isActive: false },
+        { apartment:'B' ,isActive: false },
+        { apartment:'C' ,isActive: false },
+        { apartment:'D' ,isActive: false },
+        { apartment:'E' ,isActive: false },
+        { apartment:'F' ,isActive: false },
+        { apartment:'G' ,isActive: false },
+        { apartment:'H' ,isActive: false },
+    ])
     const changeFloor = (floorNumber) => {
         setShowSelected(true);
-        setAuth({...auth, floor: floorNumber});
+        setUser({...user, floor: floorNumber});
+        let updatedFloors = [];
+        floors.forEach(floor => {
+            if(floor.floor === floorNumber){
+                updatedFloors.push({ floor: floorNumber, isActive: true })
+            }else{
+                updatedFloors.push({ floor: floor.floor, isActive: false })
+            }
+        })
+        setFloors(updatedFloors);
     }
 
-    const changeApartment = (apartment) => {
+    const changeApartment = (apartmentSelected) => {
         setShowSelected(true);
-        setAuth({...auth, apartment: apartment});
+        setUser({...user, apartment: apartmentSelected});
+        let updatedApartments = [];
+        apartments.forEach(apartment => {
+            if(apartment.apartment === apartmentSelected){
+                updatedApartments.push({ apartment: apartmentSelected, isActive: true })
+            }else{
+                updatedApartments.push({ apartment: apartment.apartment, isActive: false })
+            }
+        })
+        setApartments(updatedApartments);
     }
 
     const submitApartment = () => {
@@ -26,8 +59,8 @@ export default function Apartments() {
     }
 
     useEffect(() => {
-        console.log('auth', auth);
-    }, [auth]);
+        console.log('user', user);
+    }, [user]);
 
     return (
         <Layout>
@@ -51,39 +84,38 @@ export default function Apartments() {
                         
                         <div className="buttons-container">
                             <p className="body1 floor-label">Piso:</p>
-                            <button onClick={()=>changeFloor(0)} className="button3 button2-font place1btn">PB</button>
-                            <button onClick={()=>changeFloor(1)} className="button3 button2-font place2btn">1°</button>
-                            <button onClick={()=>changeFloor(2)} className="button3 button2-font place3btn">2°</button>
-                            <button onClick={()=>changeFloor(3)} className="button3 button2-font place4btn">3°</button>
+                            {floors.map((floor, index) => (
+                                <button key={index} onClick={()=>changeFloor(floor.floor)}
+                                        className={`button3 button2-font place${index}btn ${floor.isActive && `active`}`}>
+                                    {floor.floor===0 ? (<p>PB</p>) : (<p>{floor.floor}°</p>)}
+                                </button>
+                            ))}
                             
                             <p className="body1 apartment-label">Dpto:</p>
-                            <button onClick={()=>changeApartment("A")} className="button3 button2-font place1btn">A</button>
-                            <button onClick={()=>changeApartment("B")} className="button3 button2-font place2btn">B</button>
-                            <button onClick={()=>changeApartment("C")} className="button3 button2-font place3btn">C</button>
-                            <button onClick={()=>changeApartment("D")} className="button3 button2-font place4btn">D</button>
-                            <button onClick={()=>changeApartment("E")} className="button3 button2-font place1btn">E</button>
-                            <button onClick={()=>changeApartment("F")} className="button3 button2-font place2btn">F</button>
-                            <button onClick={()=>changeApartment("G")} className="button3 button2-font place3btn">G</button>
-                            <button onClick={()=>changeApartment("H")} className="button3 button2-font place4btn">H</button>
+                            {apartments.map((apartment,index) => (
+                                <button key={index} onClick={()=>changeApartment(apartment.apartment)}
+                                        className={`button3 button2-font place${ index<4 ? index : index-4 }btn ${apartment.isActive && `active`}`}>
+                                    {apartment.apartment}
+                                </button>
+                            ))}
                                 
                             <p className="body1 selection-label">Usted seleccionó:</p>
-                             
-                            <button className="button-selected button4 button2-font place2btn" disabled>
+                            <button className="button-selected button4 button2-font place1btn selection-display"  disabled>
                                 {showSelected ? (
-                                    <p>{auth.floor === 0 ? `PB` : `${auth.floor}°`} {auth.apartment}</p>
+                                    <p>{user.floor === 0 ? `PB` : `${user.floor}°`} {user.apartment}</p>
                                 ) : (
                                     <p> </p>
                                 )}
                             </button>
-                            
-                            <button onClick={submitApartment} disabled={!auth.apartment} 
-                                    className="next-button continue-button">
-                                <span className="icon">
-                                    <FaChevronRight/>
-                                </span>
-                            </button>
-                            
                         </div>
+                        
+                        <button onClick={submitApartment} disabled={!user.apartment} 
+                                className="continue-button next-button ">
+                            <span className="icon">
+                                <FaChevronRight/>
+                            </span>
+                        </button>
+                        
                         
                     </div>
                 </div>

@@ -9,10 +9,10 @@ import { ReservationsContext } from '../../contexts/ReservationsContext';
 
 export default function Wings() {
     const navigate  = useNavigate();
-    const {auth, setAuth} = useContext(ReservationsContext);
+    const {user, setUser} = useContext(ReservationsContext);
     
     const handleClick = (wingNumber) => {
-        setAuth({...auth, wing: wingNumber});
+        setUser({...user, wing: wingNumber});
         navigate("/apartments");
     }
 
@@ -37,8 +37,8 @@ export default function Wings() {
                             <h3 className="title heading2">Seleccione su Ala</h3>
                         </div>
                         <div className="buttons-container">
-                            <button onClick={()=>handleClick(1)} className="button2 button-font">Ala 01</button>
-                            <button onClick={()=>handleClick(2)} className="button2 button-font">Ala 02</button> 
+                            <button onClick={()=>handleClick(1)} className="button2 button-font column1">Ala 01</button>
+                            <button onClick={()=>handleClick(2)} className="button2 button-font column2">Ala 02</button> 
                         </div>
                     </div>
                 </div>

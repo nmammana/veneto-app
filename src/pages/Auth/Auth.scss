@@ -7,7 +7,7 @@ $white: #FFFFFF;
     .auth-main__wrapper{
         max-width: 1280px;
         margin: 0 auto;
-        
+        position: relative;
         .heading-container{
             padding: 0 2em ;
             display: grid;
@@ -35,27 +35,24 @@ $white: #FFFFFF;
                 flex-wrap: wrap;
                 gap: 1.5em 1.3em;
             }
-            .pin-container{
-                position: relative;
-                .pin-screen{
-                    border: 4px solid $blue;
-                    border-radius: 50px;    
-                    opacity: 1;
-                    padding: 0 4.2em;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    height: 4.2em;
-                    width: 18em;
-                }
-                .continue-button{
-                    position: absolute;
-                    bottom: 0;
-                    right: 0;
-                }
+            
+            .pin-screen{
+                border: 4px solid $blue;
+                border-radius: 50px;    
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 4.2em;
+                width: 22em;
             }
         }
         
-            
+        
+        .continue-button{
+            position: absolute;
+            right: 2rem;
+            bottom: 3rem;
+        }
+             
     }
 }

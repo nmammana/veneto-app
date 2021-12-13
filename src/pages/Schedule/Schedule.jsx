@@ -14,7 +14,6 @@ import { ToastContainer, toast } from "react-toastify";
 export default function Schedule() {
     const navigate  = useNavigate();
     const {reservation, setReservation, fieldSelected} = useContext(ReservationsContext);
-    
     const hours = [ 
         "08:00", "08:30", "09:00", "09:30",
         "10:00", "10:30", "11:00", "11:30", 
@@ -65,12 +64,25 @@ export default function Schedule() {
                         selectIntermediateTimes = false;
                     }
                 }
-                if(hoursUpdated.length > 4){
+                if(hoursUpdated.length < 3){
+                    hoursUpdated=[];
+                    setStartTime("");
+                    setEndTime("");
+                    toast.warn('El tiempo mínimo de duración por reserva es de 1 hora.', {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                }else if(hoursUpdated.length > 5){
                     hoursUpdated=[];
                     setStartTime("");
                     setEndTime("");
                     toast.warn('El tiempo máximo de duración por reserva es de 2 horas.', {
-                        position: "top-center",
+                        position: "bottom-center",
                         autoClose: 5000,
                         hideProgressBar: false,
                         closeOnClick: true,
@@ -189,15 +201,15 @@ export default function Schedule() {
                                             notAvailableHours={notAvailableHours}
                                             hours={hours}/>
                         </div> 
-                        <div className="continue-container">
-                            <button onClick={scheduleSubmit} disabled={selectedHours?.length<=1} className="next-button continue-button">
-                                <span className="icon">
-                                    <FaChevronRight/>
-                                </span>
-                            </button>
-                        </div>
+
+                        <button onClick={scheduleSubmit} disabled={selectedHours?.length<=1} className="continue-button next-button">
+                            <span className="icon">
+                                <FaChevronRight/>
+                            </span>
+                        </button>
+
                         <ToastContainer
-                            position="top-center"
+                            position="bottom-center"
                             autoClose={5000}
                             hideProgressBar={false}
                             newestOnTop={false}
@@ -209,6 +221,7 @@ export default function Schedule() {
                             theme="light"
                             />
                     </div>
+                    
                 </div>
             </main>
         </Layout>

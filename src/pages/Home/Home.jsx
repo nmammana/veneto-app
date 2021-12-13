@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout'
 import './Home.scss';
@@ -9,20 +9,22 @@ import { ReservationsContext } from '../../contexts/ReservationsContext';
 
 export default function Home() {
     const navigate  = useNavigate();
-    const {setUserId, setAuth} = useContext(ReservationsContext);
+    const {setUser} = useContext(ReservationsContext);
     
     const logout = () => {
-        setUserId("");
-        navigate('/auth');
+        //todo: ver si direccionar a inicio o a auth, en funcion de eso se va a borrar todo el user o solo la informacion que se obtiene una vez autenticado
+        setUser({
+            pin: 0,
+            tower: 0,
+            floor: 0,
+            apartment: "",
+            wing: 0,
+            userId: "",
+            name: "",
+            identityNumber: "",
+        });
+        navigate('/');
     }
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setUserId("");
-            navigate('/');
-        }, 150000);
-        return () => clearTimeout(timer);
-      }, []);
 
     return (
         <Layout>
