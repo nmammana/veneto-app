@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout'
 import './Reservation.scss';
 import '../../assets/icons/iconosVeneto-v1.0/style.scss';
-import {FaChevronLeft, FaChevronRight} from 'react-icons/fa';
+import { FaChevronLeft } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import { ReservationsContext } from '../../contexts/ReservationsContext';
 import axios from 'axios';
@@ -12,7 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 export default function Reservation() {
     const navigate  = useNavigate();
-    const {reservation, user, fieldSelected, setUser} = useContext(ReservationsContext);
+    const {reservation, user, fieldSelected} = useContext(ReservationsContext);
 
     useEffect(() => {
         console.log('reservation',reservation)
@@ -89,7 +89,7 @@ export default function Reservation() {
                                             </tr>
                                             <tr>
                                                 <td className="category body2">Propietario:</td>
-                                                <td className="value body3 name">{user.name}</td>
+                                                <td className="value body3 name">{user.identityNumber ? user.name : "Inquilino"}</td>
                                             </tr>
                                         </tbody>
                                     }

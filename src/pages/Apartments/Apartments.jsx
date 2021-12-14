@@ -17,15 +17,16 @@ export default function Apartments() {
         { floor: 3, isActive: false },
     ])
     const [apartments, setApartments] = useState([
-        { apartment:'A' ,isActive: false },
-        { apartment:'B' ,isActive: false },
-        { apartment:'C' ,isActive: false },
-        { apartment:'D' ,isActive: false },
-        { apartment:'E' ,isActive: false },
-        { apartment:'F' ,isActive: false },
-        { apartment:'G' ,isActive: false },
-        { apartment:'H' ,isActive: false },
+        { apartment:'' ,isActive: false },
+        { apartment:'' ,isActive: false },
+        { apartment:'' ,isActive: false },
+        { apartment:'' ,isActive: false },
+        { apartment:'' ,isActive: false },
+        { apartment:'' ,isActive: false },
+        { apartment:'' ,isActive: false },
+        { apartment:'' ,isActive: false },
     ])
+
     const changeFloor = (floorNumber) => {
         setShowSelected(true);
         setUser({...user, floor: floorNumber});
@@ -59,8 +60,22 @@ export default function Apartments() {
     }
 
     useEffect(() => {
-        console.log('user', user);
-    }, [user]);
+        const apartmentsWing1 = ["A","B","C","D","E","F","G","H"];
+        const apartmentsWing2 = ["I","J","K","L","M","N","O","P"];
+        if(user.wing === 1){
+            let apartments1 = [];
+            for(let i=0; i<apartments.length; i++){
+                apartments1.push({ apartment: apartmentsWing1[i] ,isActive: false })
+            }
+            setApartments(apartments1);
+        }else{
+            let apartments2 = [];
+            for(let i=0; i<apartments.length; i++){
+                apartments2.push({ apartment: apartmentsWing2[i] ,isActive: false })
+            }
+            setApartments(apartments2);
+        }
+    }, [user.wing, apartments.length]);
 
     return (
         <Layout>
