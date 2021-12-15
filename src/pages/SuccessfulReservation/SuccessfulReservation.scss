@@ -1,54 +1,53 @@
-$green: #00B745;
-$blue: #008DC8;
-$white: #FFFFFF;
+$green: #00b745;
+$blue: #008dc8;
+$white: #ffffff;
 
+.success-main {
+  .success-main__wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
 
-.success-main{
-    .success-main__wrapper{
-        max-width: 1280px;
-        margin: 0 auto;
-        
-        .heading-container{
-            padding: 0 2em ;
-            display: flex;
-            justify-content: center;
-            .title{
-                padding: 1em 0;
-            }
-        }
-
-        .success-container{
-            padding: 1em 2em 3em;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            .message-container{
-                padding: 6em 0 2em;
-                
-                .emoji{
-                    padding: 0 0 .5em;
-                    font-size: 4em;
-                    text-align: center;
-                }
-            }   
-            
-            .button-container{
-                padding: 1em 0;
-                width: 100%;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
-                gap: 3em;
-                .success-button{
-                    width: 36%;   
-                    height: 3em;           
-                }
-            }
-            
-        }
-         
+    .heading-container {
+      padding: 0 2em;
+      display: flex;
+      justify-content: center;
+      .title {
+        padding: 1em 0;
+      }
     }
+
+    .success-container {
+      padding: 1em 2em 3em;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .message-container {
+        padding: 6em 0 2em;
+
+        .emoji {
+          padding: 0 0 0.5em;
+          font-size: 6em;
+          text-align: center;
+          padding-bottom: 0.2em;
+        }
+      }
+
+      .button-container {
+        padding: 1em 0;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 2em;
+        margin-top: 2em;
+        .success-button {
+          width: 46%;
+          height: 3em;
+        }
+      }
+    }
+  }
 }
