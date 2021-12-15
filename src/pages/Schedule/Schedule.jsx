@@ -25,9 +25,7 @@ export default function Schedule() {
         "22:00", "22:30", "23:00", "23:30", 
         "00:00",];
     const [selectedHours, setSelectedHours] = useState([]); 
-    const [busyHours, setBusyHours] = useState([]);
-    const [notAvailableHours, setNotAvailableHours] = useState([]);
-    
+    const [busyHours, setBusyHours] = useState([]);    
     const [firstSelection, setFirstSelection] = useState(true);
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
@@ -146,38 +144,13 @@ export default function Schedule() {
     }
     
     useEffect(() => {
-        const hoursAll = [ 
-            "08:00", "08:30", "09:00", "09:30",
-            "10:00", "10:30", "11:00", "11:30", 
-            "12:00", "12:30", "13:00", "13:30", 
-            "14:00", "14:30", "15:00", "15:30", 
-            "16:00", "16:30", "17:00", "17:30", 
-            "18:00", "18:30", "19:00", "19:30", 
-            "20:00", "20:30", "21:00", "21:30", 
-            "22:00", "22:30", "23:00", "23:30", 
-            "00:00",];
-
         const fetchBusyHours = async() => {
             const response = await axios.get(`http://${process.env.REACT_APP_API_URL}/reservation/reservated-hours?type=${reservation.type}`);
             setBusyHours(response.data);
-
-            let notAvailableHoursArr = [];
-            for(let i=0; i<hoursAll.length; i++){
-                if(firstSelection){
-                    if(response.data.includes(hoursAll[i]) && !response.data.includes(hoursAll[i-1])){
-                        notAvailableHoursArr.push(hoursAll[i-1]);
-                    }
-                }else{
-                    if(response.data.includes(hoursAll[i]) && !response.data.includes(hoursAll[i+1])){
-                        notAvailableHoursArr.push(hoursAll[i+1]);
-                    } 
-                } 
-            }
-            setNotAvailableHours(notAvailableHoursArr);
         }
         fetchBusyHours();
         
-    }, [firstSelection, reservation.type]);
+    }, [reservation.type]);
 
     return (
         <Layout>
@@ -216,7 +189,6 @@ export default function Schedule() {
                                             endTime={endTime}
                                             selectedHours={selectedHours}
                                             busyHours={busyHours}
-                                            notAvailableHours={notAvailableHours}
                                             hours={hours}/>
                         </div> 
 

@@ -12,11 +12,20 @@ export default function UserReservation({reservation, deleteReservation}) {
             <td className="field">Cancha {reservation.field}</td>
             <td  className="schedule">{reservation.hours}</td>
             <td className="cancel">
-                <button 
-                    className="cancel-button button3-font" 
-                    onClick={() => setModalIsOpen(true)}>
-                        Cancelar
-                </button>
+                {reservation.current ? (
+                    <button 
+                        className="cancel-button button3-font" 
+                        onClick={() => setModalIsOpen(true)}>
+                            Cancelar
+                    </button>
+                ) : (
+                    <button 
+                        className="ended-button button3-font" 
+                        disabled>
+                            Finalizado
+                    </button>
+                )}
+                
                 <Modal isOpen={modalIsOpen} onRequestClose={()=>setModalIsOpen(false)}
                         style={
                             {

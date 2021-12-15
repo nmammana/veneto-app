@@ -178,6 +178,22 @@ $middle-gray: #969696;
   justify-content: center;
 }
 
+.ended-button {
+  background: $blue 0% 0% no-repeat padding-box;
+  border-radius: 20px;
+  opacity: 1;
+  border: none;
+  outline: none;
+  min-width: 8em;
+  letter-spacing: 0px;
+  color: $white;
+  text-transform: uppercase;
+  padding: 0.7em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .back-button {
   border-radius: 50%;
   background: $middle-gray 0% 0% no-repeat padding-box;

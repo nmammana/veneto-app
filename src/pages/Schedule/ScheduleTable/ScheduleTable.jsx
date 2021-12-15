@@ -8,7 +8,6 @@ export default function ScheduleTable({
   hours,
   selectedHours,
   busyHours,
-  notAvailableHours,
   startTime,
   endTime,
 }) {
@@ -38,7 +37,6 @@ export default function ScheduleTable({
             selectSchedule={selectSchedule}
             selectedHours={selectedHours}
             busyHours={busyHours}
-            notAvailableHours={notAvailableHours}
           />
         ))}
       </div>

@@ -21,43 +21,42 @@ export default function MyReservations() {
       );
       if (response.data) {
         let reservationsArray = [];
-
         response.data.forEach((dataBlock) => {
           let reservationObj = {
             id: "",
             name: "",
             field: "",
             hours: "",
+            current: false,
           };
-          const today = new Date();
-          if (
-            dataBlock.date ===
-            `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
-          ) {
-            reservationObj.id = dataBlock._id;
+          reservationObj.id = dataBlock._id;
 
-            if (dataBlock.type.split("_")[0] === "FOOTBALL") {
-              reservationObj.name = "Fútbol";
-            } else if (dataBlock.type.split("_")[0] === "TENNIS") {
-              reservationObj.name = "Tenis";
-            } else if (dataBlock.type.split("_")[0] === "PADDLE") {
-              reservationObj.name = "Paddle";
-            } else if (dataBlock.type.split("_")[0] === "BOWLING") {
-              reservationObj.name = "Bochas";
-            }
-
-            if (dataBlock.type.split("_")[1] === "A") {
-              reservationObj.field = "1";
-            } else if (dataBlock.type.split("_")[1] === "B") {
-              reservationObj.field = "2";
-            } else {
-              reservationObj.field = "1";
-            }
-            reservationObj.hours = `${dataBlock.hours[0]} a ${
-              dataBlock.hours[dataBlock.hours.length - 1]
-            }`;
-            reservationsArray.push(reservationObj);
+          if (dataBlock.type.split("_")[0] === "FOOTBALL") {
+            reservationObj.name = "Fútbol";
+          } else if (dataBlock.type.split("_")[0] === "TENNIS") {
+            reservationObj.name = "Tenis";
+          } else if (dataBlock.type.split("_")[0] === "PADDLE") {
+            reservationObj.name = "Paddle";
+          } else if (dataBlock.type.split("_")[0] === "BOWLING") {
+            reservationObj.name = "Bochas";
           }
+
+          if (dataBlock.type.split("_")[1] === "A") {
+            reservationObj.field = "1";
+          } else if (dataBlock.type.split("_")[1] === "B") {
+            reservationObj.field = "2";
+          } else {
+            reservationObj.field = "1";
+          }
+          reservationObj.hours = `${dataBlock.hours[0]} a ${
+            dataBlock.hours[dataBlock.hours.length - 1]
+          }`;
+
+          const today = new Date();
+          reservationObj.current = 
+            (dataBlock.date === `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`) ? true : false;
+
+          reservationsArray.push(reservationObj);
         });
         setMyReservations(reservationsArray);
       }
@@ -73,7 +72,6 @@ export default function MyReservations() {
         `http://${process.env.REACT_APP_API_URL}/reservation/cancel/${reservationId}`
       );
       let data = response.data;
-      console.log(data);
       if (data) {
         let reservationsUpdated = [];
         myReservations.forEach((reservation) => {
@@ -93,7 +91,7 @@ export default function MyReservations() {
         });
       }
     } catch (e) {
-      console.error("RESERVATION ERROR: ", e);
+      console.error("CANCEL RESERVATION ERROR: ", e);
       toast.error("No se pudo cancelar la reserva", {
         position: "bottom-center",
         autoClose: 5000,
