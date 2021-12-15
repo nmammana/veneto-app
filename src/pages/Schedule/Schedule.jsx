@@ -43,7 +43,6 @@ export default function Schedule() {
             setFirstSelection(false);
         }else{
             if(selectedHour === startTime){
-                console.log('hora de finalizacion igual a la de inicio:', startTime, selectedHour)
                 setStartTime("");
                 hoursUpdated=[];
             }else{
@@ -105,8 +104,6 @@ export default function Schedule() {
             if(selectedHour !== "00:00"){
                 setStartTime(selectedHour);
                 updateSchedule(selectedHour);
-            }else{
-                console.log('Error: Invalid start time')
             }
         }else{
             const startHourOnly = parseInt(startTime.split(":")[0]);
@@ -116,14 +113,26 @@ export default function Schedule() {
             if(parseInt(selectedHour.split(":")[0]) < 6){
                 selectedHourOnly = parseInt(selectedHour.split(":")[0]) + 24;
             }
-           /*  console.log('startHour',startHour);
-            console.log('startMinute',startMinute);
-            console.log('selectedHour',selectedHour);
-            console.log('selectedMinute',selectedMinute); */
             if(startHourOnly > selectedHourOnly){
-                console.log('error: invalid hour selected. Start hour bigger than selected');
+                toast.warn('La hora de finalización no puede estar antes que la de inicio.', {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
             }else if((startHourOnly === selectedHourOnly) && (startMinuteOnly > selectedMinuteOnly)){
-                console.log('error: invalid hour selected. Same hour but start minute bigger than selected');
+                toast.warn('La hora de finalización no puede estar antes que la de inicio.', {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
             }else{
                 setEndTime(selectedHour);
                 updateSchedule(selectedHour);
@@ -137,29 +146,38 @@ export default function Schedule() {
     }
     
     useEffect(() => {
+        const hoursAll = [ 
+            "08:00", "08:30", "09:00", "09:30",
+            "10:00", "10:30", "11:00", "11:30", 
+            "12:00", "12:30", "13:00", "13:30", 
+            "14:00", "14:30", "15:00", "15:30", 
+            "16:00", "16:30", "17:00", "17:30", 
+            "18:00", "18:30", "19:00", "19:30", 
+            "20:00", "20:30", "21:00", "21:30", 
+            "22:00", "22:30", "23:00", "23:30", 
+            "00:00",];
 
         const fetchBusyHours = async() => {
             const response = await axios.get(`http://${process.env.REACT_APP_API_URL}/reservation/reservated-hours?type=${reservation.type}`);
             setBusyHours(response.data);
 
             let notAvailableHoursArr = [];
-            for(let i=0; i<hours.length; i++){
+            for(let i=0; i<hoursAll.length; i++){
                 if(firstSelection){
-                    if(response.data.includes(hours[i]) && !response.data.includes(hours[i-1])){
-                        notAvailableHoursArr.push(hours[i-1]);
+                    if(response.data.includes(hoursAll[i]) && !response.data.includes(hoursAll[i-1])){
+                        notAvailableHoursArr.push(hoursAll[i-1]);
                     }
                 }else{
-                    if(response.data.includes(hours[i]) && !response.data.includes(hours[i+1])){
-                        notAvailableHoursArr.push(hours[i+1]);
+                    if(response.data.includes(hoursAll[i]) && !response.data.includes(hoursAll[i+1])){
+                        notAvailableHoursArr.push(hoursAll[i+1]);
                     } 
                 } 
             }
-            console.log('notAvailableHoursArr', notAvailableHoursArr);
             setNotAvailableHours(notAvailableHoursArr);
         }
         fetchBusyHours();
         
-    }, [firstSelection]);
+    }, [firstSelection, reservation.type]);
 
     return (
         <Layout>

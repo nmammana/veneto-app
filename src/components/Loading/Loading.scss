@@ -1,12 +1,11 @@
-$green: #00B745;
-$blue: #008DC8;
-$white: #FFFFFF;
+$green: #00b745;
+$blue: #008dc8;
+$white: #ffffff;
 
-.loading-container{
+.loading-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  //width: 100%;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -45,5 +44,3 @@ $white: #FFFFFF;
     opacity: 0;
   }
 }
-
-

@@ -25,7 +25,7 @@ export default function IdleTimerContainer({children}) {
         <div>
             <IdleTimer 
                 ref={idleTimerRef}
-                timeout={360 * 1000} 
+                timeout={150 * 1000} 
                 onIdle={onIdle}>
                 {children}
             </IdleTimer>

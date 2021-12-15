@@ -52,18 +52,6 @@ export default function App() {
                 <Route path="/myReservations" element={ <PrivateRoute><MyReservations/></PrivateRoute> }/>
                 
                 <Route path="*" element={<Error404/>}/>
-
-                {/* <Route exact path="/" element={<Welcome/>}/> */}
-                {/* <Route exact path="/towers" element={<Towers/>}/> */}
-                {/* <Route exact path="/wings" element={<Wings/>}/> */}
-                {/* <Route exact path="/apartments" element={<Apartments/>}/> */}
-                {/* <Route exact path="/auth" element={<Auth/>}/> */}
-                {/* <Route exact path="/home" element={<Home/>}/> */}
-                {/* <Route exact path="/sports" element={<Sports/>}/>   */}
-                {/* <Route exact path="/schedule" element={<Schedule/>}/> */}
-                {/* <Route exact path="/reservation" element={<Reservation/>}/> */}
-                {/* <Route exact path="/myReservations" element={<MyReservations/>}/> */}
-                
             </Routes>
         </Suspense>
       </IdleTimerContainer>

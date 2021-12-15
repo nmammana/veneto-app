@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout'
 import './Reservation.scss';
@@ -13,16 +13,10 @@ import { ToastContainer, toast } from "react-toastify";
 export default function Reservation() {
     const navigate  = useNavigate();
     const {reservation, user, fieldSelected} = useContext(ReservationsContext);
-
-    useEffect(() => {
-        console.log('reservation',reservation)
-    }, [reservation])
-
     const submitReservation = async () => {
         try {
             let response = await axios.post(`http://${process.env.REACT_APP_API_URL}/reservation`, reservation);
             let data = response.data;
-            //todo: mostrar mensaje de reserva guardada correctamente, al dar OK direccionar a  "/"
             if(data){
                navigate("/success");
             }

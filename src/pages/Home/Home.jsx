@@ -12,7 +12,6 @@ export default function Home() {
     const {setUser} = useContext(ReservationsContext);
     
     const logout = () => {
-        //todo: ver si direccionar a inicio o a auth, en funcion de eso se va a borrar todo el user o solo la informacion que se obtiene una vez autenticado
         setUser({
             pin: 0,
             tower: 0,
@@ -35,15 +34,11 @@ export default function Home() {
                             <div className="rectangle"></div>
                         </div>
                         <div className="heading-container">
-                            {/* <Link to="/auth" className="back-link"> */}
                                 <button className="back-button" onClick={logout}>
                                     <span className="icon">
                                         <FaChevronLeft/>
                                     </span>
-                      
                                 </button>
-                            {/* </Link> */}
-                            
                             <h3 className="title heading2">Menú</h3>
                         </div>
                         <div className="buttons-container">

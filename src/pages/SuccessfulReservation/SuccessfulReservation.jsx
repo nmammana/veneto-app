@@ -37,9 +37,6 @@ export default function SuccessfulReservation() {
                         <div className="rectangle-container">
                             <div className="rectangle"></div>
                         </div>
-                        {/* <div className="heading-container">
-                            <h3 className="title heading2">Reserva confimada</h3>
-                        </div> */}
                         
                         <div className="success-container"> 
                         <div className="message-container">

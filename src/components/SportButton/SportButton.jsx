@@ -2,7 +2,7 @@ import React from 'react'
 import './SportButton.scss';
 
 export default function SportButton({typeOfField, selectField}) {
-    const {name, field, icon, selected, type} = typeOfField;
+    const {name, field, icon, selected} = typeOfField;
     const buttonSelected = selected ? 'selected' : ''; 
     return (
         <button className={`${buttonSelected} sport-button`} onClick={() => selectField(typeOfField)}>

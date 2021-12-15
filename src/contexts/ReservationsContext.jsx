@@ -1,4 +1,4 @@
-import React , {createContext, useEffect, useState} from 'react'
+import React , {createContext, useState} from 'react'
 import Loading from '../components/Loading/Loading';
 import Layout from '../components/Layout';
 
@@ -30,19 +30,8 @@ export default function ReservationsContextProvider({children}) {
         selected:"",
         type:"",
     })
-    
 
-    const [isLoadingReservations, setIsLoadingReservations] = useState(true);
-
-    const updateReservations = async() => {
-        // todo:  loadReservations()
-        setIsLoadingReservations(false);
-    }
-
-    useEffect(() => {
-        updateReservations();
-        console.log('env vble', process.env.REACT_APP_API_URL)
-    },[])
+    const [isLoadingReservations, setIsLoadingReservations] = useState(false);
 
     if(isLoadingReservations){
         return (
@@ -56,7 +45,8 @@ export default function ReservationsContextProvider({children}) {
         <ReservationsContext.Provider 
             value={{    user, setUser, 
                         reservation, setReservation, 
-                        fieldSelected, setFieldSelected}}>
+                        fieldSelected, setFieldSelected,
+                        setIsLoadingReservations}}>
             {children}
         </ReservationsContext.Provider>
     )

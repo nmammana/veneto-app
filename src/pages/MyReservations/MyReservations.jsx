@@ -11,16 +11,16 @@ import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 
 export default function MyReservations() {
-    const {user} = useContext(ReservationsContext);
+    const {user, setIsLoadingReservations} = useContext(ReservationsContext);
     const [myReservations, setMyReservations] = useState([])
-    const today = new Date;
+    
 
     useEffect(() => {
         const fetchReservationsByUser = async () => {
             const response = await axios.get(`http://${process.env.REACT_APP_API_URL}/reservation/by-user/?user=${user.userId}`);
             if(response.data){
                 let reservationsArray = [];
-                
+                const today = new Date();
                 response.data.forEach(dataBlock => {
                     let reservationObj = {
                         id: "",
@@ -56,17 +56,17 @@ export default function MyReservations() {
             }
         }
         if(user.userId){
+            setIsLoadingReservations(true);
             fetchReservationsByUser();
+            setIsLoadingReservations(false);
         }
         
-    }, [])
+    }, [setIsLoadingReservations, user.userId])
 
     const deleteReservation = async (reservationId) => {
         try {
             let response = await axios.post(`http://${process.env.REACT_APP_API_URL}/reservation/cancel/${reservationId}`);
             let data = response.data;
-            console.log(data);
-            //todo: mostrar mensaje de reserva eliminada correctamente??
             if(data){
                 let reservationsUpdated = [];
                 myReservations.forEach(reservation => {
@@ -86,8 +86,15 @@ export default function MyReservations() {
                     });
             }
         }catch(e){
-            console.error("RESERVATION ERROR: ", e)
-            //todo: mostrar modal de error en reserva
+            toast.error("No se pudo cancelar la reserva", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });  
         }
     }
 
@@ -136,8 +143,7 @@ export default function MyReservations() {
                             draggable
                             pauseOnHover
                             theme="light"
-                            />
-                        
+                            />                        
                     </div>
                 </div>
             </main>

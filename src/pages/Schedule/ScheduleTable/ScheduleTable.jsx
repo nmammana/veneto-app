@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './ScheduleTable.scss';
 import HourBox from './HourBox/HourBox';
 

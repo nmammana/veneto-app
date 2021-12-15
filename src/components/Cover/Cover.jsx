@@ -7,10 +7,9 @@ export default function Cover({children}) {
     return (
         <div className="cover">
             {children}
-            <img className="logo" src={logo} alt="logo"></img>
-           {/*  <div className="logo-container">
-                
-            </div> */}
+            <div className="logo-container">
+                <img className="logo" src={logo} alt="logo"></img>
+            </div>
         </div>
     )
 }
