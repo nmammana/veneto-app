@@ -8,7 +8,7 @@ import PrivateRoute from './routes/PrivateRoute';
 
 import Loading from './components/Loading/Loading';
 import Welcome from './pages/Welcome/Welcome';
-import Error404 from './pages/Error404';
+import Error404 from './pages/Error404/Error404';
 import Towers from './pages/Towers/Towers';
 import Wings from './pages/Wings/Wings';
 import Apartments from './pages/Apartments/Apartments';
